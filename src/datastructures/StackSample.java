@@ -1,42 +1,36 @@
 package datastructures;
 
-import java.util.Stack;
-
 public class StackSample {
-    public static char[][] TOKENS = {{'{', '}'}, {'[', ']'}, {'(', ')'}};
+    public static class Stack {
+        private static class Node {
+            private int data;
+            private Node next;
 
-    public static boolean isOpenTerm(char c) {
-        for (char[] array : TOKENS) {
-            if (array[0] == c) {
-                return true;
+            private Node(int data) {
+                this.data = data;
             }
         }
-        return false;
-    }
 
-    public static boolean matches(char openTerm, char closeTerm) {
-        for (char[] array : TOKENS) {
-            if (array[0] == openTerm) {
-                return array[1] == closeTerm;
-            }
+        private Node top;
+
+        public boolean isEmpty() {
+            return top == null;
         }
-        return false;
-    }
 
-    public static boolean isBalanced(String expression) {
-        Stack<Character> stack = new Stack<>();
-        for (char c : expression.toCharArray()) {
-            if (isOpenTerm(c)) {
-                stack.push(c);
-            } else {
-                if (stack.isEmpty() || !matches(stack.pop(), c)) {
-                    return false;
-                }
-            }
+        public int peek() {
+            return top.data;
         }
-        return stack.isEmpty();
-    }
-    public static void main(String[] args) {
 
+        public void push(int data) {
+            Node node = new Node(data);
+            node.next = top;
+            top = node;
+        }
+
+        public int pop() {
+            int data = top.data;
+            top = top.next;
+            return data;
+        }
     }
 }
