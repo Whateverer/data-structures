@@ -34,6 +34,20 @@ public class MinIntHeap {
     }
 
     public int peek() {
-        return 0;
+        if(size == 0) throw new IllegalStateException();
+        return items[0];
+    }
+
+    public int poll() {
+        if (size == 0) throw new IllegalStateException();
+        int item = items[0];
+        items[0] = items[size - 1];
+        size--;
+        heapfyDown();
+        return item;
+    }
+
+    public void add(int item) {
+
     }
 }
